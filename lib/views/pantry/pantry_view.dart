@@ -22,6 +22,7 @@ class PantryView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Pantry')),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'pantry-fab',
         onPressed: () => _showAddDialog(context),
         icon: const Icon(Icons.add),
         label: const Text('Add item'),

@@ -19,6 +19,7 @@ class FoodLogView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Food Log')),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'log-fab',
         onPressed: () => showLogMealSheet(context),
         icon: const Icon(Icons.add),
         label: const Text('Log meal'),
