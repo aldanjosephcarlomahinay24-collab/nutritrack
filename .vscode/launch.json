@@ -1,0 +1,7 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    { "name": "NutriTrack", "request": "launch", "type": "dart", "program": "lib/main.dart" },
+    { "name": "NutriTrack (Chrome)", "request": "launch", "type": "dart", "program": "lib/main.dart", "deviceId": "chrome" }
+  ]
+}
