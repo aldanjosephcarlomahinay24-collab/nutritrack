@@ -40,4 +40,4 @@ test/
 
 - Aldan Joseph Carlo C. Mahinay: MealStore (totals, history, streaks), bottom bar and navigation, Pantry
 - Heizel Ann V. Manlangit: Fuel screen, log and edit meal form, Meal Plan
-- RFD: Today screen, streak card, today's goals
+- Rein: Today screen, streak card, today's goals
