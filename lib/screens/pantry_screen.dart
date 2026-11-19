@@ -35,68 +35,72 @@ class _PantryScreenState extends State<PantryScreen> {
       listenable: widget.store,
       builder: (context, _) {
         final items = widget.store.pantry;
-        return Scaffold(
-          appBar: AppBar(title: const Text('PANTRY')),
-          body: ListView(
-            padding: const EdgeInsets.all(18),
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _item,
-                      decoration: const InputDecoration(
-                        hintText: 'Add an ingredient',
-                      ),
-                      onSubmitted: (_) => _add(),
+        return ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+          children: [
+            ScreenHeader(eyebrow: '${items.length} items', title: 'Pantry'),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _item,
+                    decoration: const InputDecoration(
+                      hintText: 'Add an ingredient',
                     ),
+                    onSubmitted: (_) => _add(),
                   ),
-                  const SizedBox(width: 10),
-                  SizedBox(
-                    width: 56,
-                    child: PopButton(label: '+', onPressed: _add),
-                  ),
-                ],
+                ),
+                const SizedBox(width: 12),
+                RoundIconButton(
+                  icon: Icons.add,
+                  tooltip: 'Add',
+                  onPressed: _add,
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            if (items.isEmpty)
+              const SectionCard(
+                child: Text(
+                  'Your pantry is empty.',
+                  style: TextStyle(color: AppColors.muted),
+                ),
               ),
-              const SizedBox(height: 14),
+            for (final item in items) ...[
               SectionCard(
-                padding: const EdgeInsets.fromLTRB(16, 6, 4, 6),
-                child: Column(
+                padding: const EdgeInsets.fromLTRB(20, 14, 10, 14),
+                child: Row(
                   children: [
-                    if (items.isEmpty)
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child: Text(
-                          'Your pantry is empty.',
-                          style: TextStyle(color: AppColors.muted),
-                        ),
-                      ),
-                    for (final item in items)
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(
-                          item.name,
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                        subtitle: Text(
-                          'Qty ${item.quantity}',
-                          style: const TextStyle(color: AppColors.muted),
-                        ),
-                        trailing: IconButton(
-                          tooltip: 'Remove',
-                          onPressed: () =>
-                              widget.store.removePantryItem(item.id),
-                          icon: const Icon(
-                            Icons.remove_circle_outline,
-                            color: AppColors.ink,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 6),
+                          Pill(
+                            'QTY ${item.quantity}',
+                            color: AppColors.blueSoft,
+                          ),
+                        ],
                       ),
+                    ),
+                    IconButton(
+                      tooltip: 'Remove',
+                      onPressed: () => widget.store.removePantryItem(item.id),
+                      icon: const Icon(Icons.delete_outline),
+                    ),
                   ],
                 ),
               ),
+              const SizedBox(height: 16),
             ],
-          ),
+          ],
         );
       },
     );

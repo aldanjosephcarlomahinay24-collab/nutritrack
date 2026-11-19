@@ -55,72 +55,81 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
   Widget build(BuildContext context) {
     final meals = plan[selectedDay]!;
     final total = meals.fold(0.0, (sum, m) => sum + m.cost);
-    return Scaffold(
-      appBar: AppBar(title: const Text('MEAL PLAN')),
-      body: ListView(
-        padding: const EdgeInsets.all(18),
-        children: [
-          Wrap(
-            spacing: 8,
-            children: [
-              for (final day in days)
-                ChoiceChip(
-                  label: Text(day),
-                  selected: selectedDay == day,
-                  onSelected: (_) => setState(() => selectedDay = day),
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+      children: [
+        const ScreenHeader(eyebrow: 'This week', title: 'Meal plan'),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final day in days)
+              ChoiceChip(
+                label: Text(day),
+                selected: selectedDay == day,
+                showCheckmark: false,
+                onSelected: (_) => setState(() => selectedDay = day),
+              ),
+          ],
+        ),
+        const SizedBox(height: 22),
+        for (final (i, meal) in meals.indexed) ...[
+          SectionCard(
+            color: [AppColors.blueSoft, Colors.white, AppColors.pink][i],
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Label(meal.slot),
+                      const SizedBox(height: 8),
+                      Text(
+                        meal.name,
+                        style: const TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-            ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      peso(meal.cost),
+                      style: const TextStyle(
+                        fontFamily: monoFont,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Pill(meal.source.toUpperCase()),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 14),
-          for (final (i, meal) in meals.indexed) ...[
-            SectionCard(
-              color: [AppColors.pink, Colors.white, AppColors.blue][i],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Label(meal.slot),
-                  const SizedBox(height: 6),
-                  Text(
-                    meal.name,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    '${peso(meal.cost)} · ${meal.source}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: AppColors.muted,
-                    ),
-                  ),
-                ],
+          const SizedBox(height: 18),
+        ],
+        Row(
+          children: [
+            Expanded(
+              child: StatCard(
+                label: 'Planned',
+                value: peso(total),
+                color: AppColors.blue,
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(width: 16),
+            const Expanded(
+              child: StatCard(label: 'Budget', value: '₱250'),
+            ),
           ],
-          Row(
-            children: [
-              Expanded(
-                child: StatCard(
-                  label: 'Planned today',
-                  value: peso(total),
-                  color: AppColors.blue,
-                ),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: StatCard(
-                  label: 'Budget',
-                  value: '₱250',
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

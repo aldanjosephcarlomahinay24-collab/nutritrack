@@ -4,9 +4,9 @@ A food log, meal planner and pantry for college students on a budget. Built with
 
 ## Screens
 
-- **Dashboard**: greeting, today's spend against the budget, this week's spend, calories and today's meals
-- **Food Log**: today's meals with delete, plus the Log a Meal form
-- **Meal Plan**: planned meals for each weekday
+- **Today**: greeting, logging streak with your best, meals and spend tiles, and goals that tick themselves
+- **Fuel**: day switcher, calorie ring with goal and what's left, protein/carbs/fat chips, 14-day history chart, meals grouped by type with edit and delete
+- **Plan**: planned meals for each weekday
 - **Pantry**: add and remove ingredients
 
 ## Run it in Visual Studio Code
@@ -30,14 +30,14 @@ lib/
   app_theme.dart
   models/        Meal, PantryItem
   data/          MealStore
-  screens/       Dashboard, Food Log, Log a Meal, Meal Plan, Pantry, bottom navigation
-  widgets/       shared cards and meal rows
+  screens/       Today, Fuel, Log a Meal, Plan, Pantry, bottom navigation
+  widgets/       cards, charts, meal rows, bottom bar
 test/
   widget_test.dart
 ```
 
 ## Team
 
-- Aldan Joseph Carlo C. Mahinay: Meal model, MealStore, bottom navigation, Pantry
-- Heizel Ann V. Manlangit: Food Log, Log a Meal form, Meal Plan
-- RFD: Dashboard
+- Aldan Joseph Carlo C. Mahinay: MealStore (totals, history, streaks), bottom bar and navigation, Pantry
+- Heizel Ann V. Manlangit: Fuel screen, log and edit meal form, Meal Plan
+- RFD: Today screen, streak card, today's goals
